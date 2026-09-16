@@ -35,10 +35,13 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	var viewport_size := get_viewport_rect().size
 	var pointer := get_viewport().get_mouse_position()
-	var normalized := Vector2(
-		clampf((pointer.x / maxf(viewport_size.x, 1.0)) * 2.0 - 1.0, -1.0, 1.0),
-		clampf(-((pointer.y / maxf(viewport_size.y, 1.0)) * 2.0 - 1.0), -1.0, 1.0)
-	)
+	var normalized := Vector2.ZERO
+	var pointer_inside := Rect2(Vector2.ZERO, viewport_size).has_point(pointer)
+	if get_window().has_focus() and pointer_inside:
+		normalized = Vector2(
+			clampf((pointer.x / maxf(viewport_size.x, 1.0)) * 2.0 - 1.0, -1.0, 1.0),
+			clampf(-((pointer.y / maxf(viewport_size.y, 1.0)) * 2.0 - 1.0), -1.0, 1.0)
+		)
 	target_point.set_target(normalized)
 
 

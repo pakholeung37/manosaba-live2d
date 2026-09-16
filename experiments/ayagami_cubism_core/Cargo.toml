@@ -1,0 +1,18 @@
+[package]
+name = "ayagami-cubism-core"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["staticlib", "cdylib"]
+
+[dependencies]
+ayagami = { path = "../../../ayagami/ayagami" }
+
+[profile.dev]
+opt-level = 3
+debug = 1
+
+[profile.dev.package.ayagami]
+opt-level = 3
+debug = 0

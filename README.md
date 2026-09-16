@@ -63,6 +63,25 @@ Run both automated integration checks with:
 - `assets/live2d/mao/` — local sample model runtime files
 - `main.gd` / `main.tscn` — the gd_cubism integration demo
 - `ayagami_demo.gd` / `ayagami_demo.tscn` — the Ayagami integration demo
+- `experiments/ayagami_cubism_core/` — Ayagami-backed Cubism Core C-ABI shim
+  that runs the existing gd_cubism integration without ayagami-gd
+
+## Ayagami through gd_cubism experiment
+
+Ayagami is compatible with the MOC3 format and model behavior, but does not
+currently expose the Cubism Core C ABI expected by the Cubism Native Framework
+inside gd_cubism. The experiment supplies that missing ABI shim and has been
+verified with the Mao model (128 parameters, 260 drawables, masks, motions, and
+expressions):
+
+```bash
+cd experiments/ayagami_cubism_core
+./run_experiment.sh
+```
+
+The script temporarily links gd_cubism against Ayagami, runs the Rust and Godot
+checks, and restores the existing official-Core binaries afterward. See the
+experiment README for its ownership and Cubism 5.3 offscreen limitations.
 
 The editable gd_cubism source lives in the sibling checkout
 `/Users/pakholeung/web/gd_cubism`; this demo does not vendor a second copy.
